@@ -6,10 +6,12 @@ import datetime
 import requests
 import logging
 
-LOG_FILE_PATH = os.getenv("LOG_FILE_PATH", "/var/log/app/server.log")
-DRAIN3_INGEST_URL = os.getenv("DRAIN3_INGEST_URL", "http://drain3-service:8000/ingest")
+# Safe default log file path (works both on Windows and inside Linux Docker)
+DEFAULT_LOG_PATH = "logs/server.log" if os.name == "nt" else "/var/log/app/server.log"
+LOG_FILE_PATH = os.getenv("LOG_FILE_PATH", DEFAULT_LOG_PATH)
+DRAIN3_INGEST_URL = os.getenv("DRAIN3_INGEST_URL", "http://localhost:8000/ingest")
 SEND_TO_DRAIN3_HTTP = os.getenv("SEND_TO_DRAIN3_HTTP", "true").lower() == "true"
-LOGS_PER_SECOND = float(os.getenv("LOGS_PER_SECOND", "5.0"))
+LOGS_PER_SECOND = float(os.getenv("LOGS_PER_SECOND", "3.0"))
 
 # Ensure directory exists
 os.makedirs(os.path.dirname(LOG_FILE_PATH), exist_ok=True)
