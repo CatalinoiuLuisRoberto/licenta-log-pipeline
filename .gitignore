@@ -39,3 +39,8 @@ drain3_state.bin
 # OS
 .DS_Store
 Thumbs.db
+
+# SPM and scratch
+SPM_Assignment/
+generate_*.py
+*.docx
